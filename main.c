@@ -12,6 +12,11 @@ int main (int ac, char **av)
 	}
 	if (pars_it(ac, av, &attr) == 1)
 		return (ft_allocate(36, 0), 1);
-	setup_simulation(&attr, &gen);
-	setup_philos(&gen);
+	if (pars_it(ac, av, &attr) == 1)
+		return (ft_allocate(36, 0), 1);
+	if (setup_simulation(&attr, &gen) != 0)
+		return (1);
+	if (setup_philos(&gen) != 0)
+		return (1);
+    the_dining(&gen);
 }

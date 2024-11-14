@@ -17,6 +17,8 @@ typedef struct s_DiningAttr
 	unsigned long	t_slp;			// Time (in ms) a philosopher spends sleeping after eating
 	unsigned long	num_meals;		// Number of times each philosopher must eat before the simulation ends
 	int				end_sign;
+	pthread_mutex_t	sign_mutex;
+	// pthread_mutex_t	print;
 }		t_DiningAttr;
 
 /* Represents individual philosopher's information and forks used during dining */
@@ -47,10 +49,15 @@ typedef struct s_gc_e
 void			ft_perror(char *str);
 int				valid_n(char *str, unsigned long *nb);
 int				pars_it(int ac, char **av, t_DiningAttr *th);
-void			setup_simulation(t_DiningAttr *attr, t_gen_data	*gen);
-void			setup_philos(t_gen_data *gen);
-unsigned long	get_time(unsigned long *nb);
+int				setup_simulation(t_DiningAttr *attr, t_gen_data	*gen);
+int				setup_philos(t_gen_data *gen);
+int				the_dining(t_gen_data *gen);
 
-void	*ft_allocate(int flag, int size);
+unsigned long	get_time(unsigned long *nb);
+void			eating(t_philo_data *ph);
+void			sleeping(t_philo_data *ph);
+void			thinking(t_philo_data *ph);
+
+void			*ft_allocate(int flag, int size);
 
 #endif
