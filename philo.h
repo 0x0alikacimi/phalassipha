@@ -18,7 +18,7 @@ typedef struct s_DiningAttr
 	unsigned long	num_meals;		// Number of times each philosopher must eat before the simulation ends
 	int				end_sign;
 	pthread_mutex_t	sign_mutex;
-	// pthread_mutex_t	print;
+	pthread_mutex_t	print;
 }		t_DiningAttr;
 
 /* Represents individual philosopher's information and forks used during dining */
@@ -35,7 +35,6 @@ typedef struct s_philo_data
 typedef struct	s_gen_data
 {
 	t_DiningAttr	*attr;			// The overall dining attributes used by all philosophers
-	int				*philo_id;		// Array of philosopher IDs, for unique identification of each philosopher thread
 	pthread_mutex_t	*forks;			// Array of mutexes representing forks. Each fork is shared between two philosophers.
 	t_philo_data	*philos;
 }	t_gen_data;
@@ -48,6 +47,7 @@ typedef struct s_gc_e
 
 void			ft_perror(char *str);
 int				valid_n(char *str, unsigned long *nb);
+void			print_msg(char *str, t_philo_data *ph, size_t i, unsigned long t);
 int				pars_it(int ac, char **av, t_DiningAttr *th);
 int				setup_simulation(t_DiningAttr *attr, t_gen_data	*gen);
 int				setup_philos(t_gen_data *gen);

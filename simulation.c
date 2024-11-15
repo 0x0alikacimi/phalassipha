@@ -51,10 +51,10 @@ void *monitor(void *arg)
 			get_time(&curr_time);
 			if (curr_time - gen->philos[i].last_eat > gen->attr->t_die)
 			{
-				printf("%lu %zu died--------------\n", curr_time, gen->philos[i].id);
 				pthread_mutex_lock(&gen->attr->sign_mutex);
 				gen->attr->end_sign = 1;
 				pthread_mutex_unlock(&gen->attr->sign_mutex);
+				print_msg("is dead\n", &gen->philos[i], i, curr_time);
 				return (NULL);
 			}
 			i++;

@@ -47,3 +47,17 @@ int	valid_n(char *str, unsigned long *nb)
 	}
 	return (*nb = res, 0);
 }
+
+void	print_msg(char *str, t_philo_data *ph, size_t i, unsigned long t)
+{
+	pthread_mutex_lock(&ph->DiningAttributes->print);
+	printf("%lu %zu %s", get_time(&t), i, str);
+	pthread_mutex_lock(&ph->DiningAttributes->sign_mutex);
+	if (ph->DiningAttributes->end_sign)
+	{
+		pthread_mutex_unlock(&ph->DiningAttributes->sign_mutex);
+		return ;
+	}
+	pthread_mutex_unlock(&ph->DiningAttributes->sign_mutex);
+	pthread_mutex_unlock(&ph->DiningAttributes->print);
+}
